@@ -1,0 +1,13 @@
+{
+    servers {
+        trusted_proxies cloudflare
+    }
+}
+
+{$CADDY_DOMAIN} {
+    encode gzip
+    reverse_proxy aptabase:8080 {
+        header_up X-Real-Ip {client_ip}
+        header_up X-Forwarded-For {client_ip}
+    }
+}
